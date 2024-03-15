@@ -27,33 +27,30 @@ function playRound(playerSelection, computerSelection) {
     return message;
 }
 
-//const playerSelection = "scissors"
-//const computerSelection = getComputerChoice();
-//console.log(playRound(playerSelection, computerSelection))
+const buttons = document.querySelectorAll("button");
+const resultsDiv = document.querySelector("#results");
+let numRounds = 0;
+let playerScore = 0;
+let computerScore = 0;
 
-function playGame() {
-    let playerScore = 0;
-    let computerScore = 0;
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function (e) {
+        let playerChoice = this.id[0].toUpperCase() + this.id.slice(1);
+        let result = playRound(playerChoice, getComputerChoice());
+        
+        numRounds++;
+        if (result[4] == "l") computerScore++;
+        if (result[4] == "w") playerScore++;
+        
+        if (numRounds % 5 == 0) {
+            let message = (playerScore == computerScore) ? "It's a tie of " + playerScore + "!":
+                (playerScore > computerScore) ? "You win " + playerScore + " to " + computerScore :
+                "You lose " + playerScore + " to  " + computerScore;
 
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Please type: 'Rock', 'Paper', or 'Scissors':");
-        let computerSelection = getComputerChoice()
-        let whoWon = playRound(playerSelection, computerSelection);
-
-        if (whoWon[4] == "l") {
-            computerScore++;
-        } else if (whoWon[4] == "w") {
-            playerScore++;
+            let displayMessage = numRounds + " rounds played! " + message;
+            let messageP = document.createElement("p");
+            messageP.textContent = displayMessage;
+            resultsDiv.prepend(messageP);
         }
-
-        //console.log(whoWon + "\n\tYou: " + playerScore + "\t Computer: " + computerScore)
-    }
-    
-    let message = (playerScore == computerScore) ? "It's a tie!" :
-        (playerScore > computerScore) ? "You win " + playerScore + " to " + computerScore :
-        "You lose " + playerScore + " to  " + computerScore;
-
-    return message;
+    });
 }
-
-console.log(playGame());
