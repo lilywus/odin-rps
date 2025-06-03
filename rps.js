@@ -36,7 +36,11 @@ let computerScore = 0;
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click", function (e) {
         let playerChoice = this.id[0].toUpperCase() + this.id.slice(1);
-        let result = playRound(playerChoice, getComputerChoice());
+        let computerChoice = getComputerChoice();
+        let result = playRound(playerChoice, computerChoice);
+        let resultP = document.createElement("p");
+        resultP.textContent = result;
+        resultsDiv.prepend(resultP);
         
         numRounds++;
         if (result[4] == "l") computerScore++;
@@ -49,6 +53,7 @@ for (let i = 0; i < buttons.length; i++) {
 
             let displayMessage = numRounds + " rounds played! " + message;
             let messageP = document.createElement("p");
+            messageP.classList.add("score");
             messageP.textContent = displayMessage;
             resultsDiv.prepend(messageP);
         }

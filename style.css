@@ -12,5 +12,12 @@ button {
     font-weight: 500;
 }
 
-#results {
+p {
+    width: 50vw;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.score {
+    background: yellowgreen;
 }
